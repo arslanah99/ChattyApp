@@ -14,7 +14,7 @@ class App extends Component {
     this.keyPress = this.keyPress.bind(this);
     this.state = {
       
-        currentUser: {name: 'Bob'}, // optional. if currentUser is not defined, it means the user is Anonymous
+        currentUser: {name: 'Steve'}, // optional. if currentUser is not defined, it means the user is Anonymous
         messages: [
           {
             username: 'Bob',
@@ -55,14 +55,29 @@ handleChange(e) {
 keyPress(e){
   if(e.key == 'Enter'){
     console.log(e.target.value)
+    let newMesages = {
+      'type': 'incomingMessage',
+      'content': e.target.value,
+      'username': this.state.currentUser.name,
+      'id': generateRandomId()
+    }
+    let curData = this.state.messages;
+    curData.push(newMesages);
+    this.setState({messages: curData})
     }
   }
+  // newMessage(e) {
+  //   console.log('fdsauifodsajfok')
+  //   if (e.key == 'Enter'){
+
+  //   }
+  // }
 
   render() {
     return (
     <div>
     {/* <Message />, */}
-    <ChatBar currentUser={this.state.currentUser} keyPress={this.keyPress} handleChange={this.handleChange} value={this.state.value}/>,
+    <ChatBar currentUser={this.state.currentUser} keyPress={this.keyPress} handleChange={this.handleChange} value={this.state.value} />,
     <MessageList messages={this.state.messages}/>
     </div>
       );
