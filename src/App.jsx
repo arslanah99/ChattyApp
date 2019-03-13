@@ -15,18 +15,7 @@ class App extends Component {
     this.state = {
       
         currentUser: {name: 'Steve'}, // optional. if currentUser is not defined, it means the user is Anonymous
-        messages: [
-          {
-            username: 'Bob',
-            content: 'Has anyone seen my marbles?',
-            id: 10294
-          },
-          {
-            username: 'Anonymous',
-            content: 'No, I think you lost them. You lost your marbles Bob. You lost them for good.',
-            id: 21934
-          }
-        ],
+        messages: [],
         value:''
       }
     }
@@ -38,8 +27,20 @@ class App extends Component {
 componentDidMount() {
   console.log('componentDidMount <App />');
 
-  var socket = new WebSocket("ws://localhost:3001/");
-  socket.onopen = () => console.log("connected to server");
+  this.socket = new WebSocket("ws://localhost:3001/");
+  this.socket.onopen = () => console.log("connected to server");
+
+  // function sendText() {
+
+  //   var msg = {
+  //     type: 'Send Message',
+  //     content: this.state.messages.content,
+  //     username: this.state.currentUser.name
+
+  //   }
+  //     socket.send(JSON.stringify(msg))
+    
+  //   }
 
   setTimeout(() => {
     console.log('Simulating incoming message');
@@ -59,15 +60,16 @@ handleChange(e) {
 keyPress(e){
   if(e.key == 'Enter'){
     console.log(e.target.value)
-    let newMesages = {
+    let newMesage = {
       'type': 'incomingMessage',
       'content': e.target.value,
       'username': this.state.currentUser.name,
-      'id': generateRandomId()
+      // 'id': generateRandomId()
     }
     let curData = this.state.messages;
-    curData.push(newMesages);
+    curData.push(newMesage);
     this.setState({messages: curData})
+    this.socket.send(JSON.stringify(newMesage))
     }
   }
   // newMessage(e) {
