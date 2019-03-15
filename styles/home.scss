@@ -1,7 +1,7 @@
 body {
   background: white;
   color: black;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 14px;
   margin: 70px 0;
 }
@@ -31,7 +31,7 @@ body {
   flex: 8;
 }
 
-Input {
+input {
   flex: 8;
   height: 40px;
   margin-top: 5px;
@@ -90,4 +90,20 @@ Input {
   line-height: 60px;
   padding: 0 10px;
   text-decoration: none;
+}
+
+.navbar-brand-name {
+  color: inherit;
+  display: block;
+  float: left;
+  font-weight: 700;
+  font-size: 18px;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 10px;
+  text-decoration: none;
+  float: right;
+  position: relative;
+  bottom: 73px;
+  z-index: 1;
 }
