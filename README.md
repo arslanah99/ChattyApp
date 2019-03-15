@@ -1,7 +1,9 @@
-React Boilerplate
+ChattyApp
 =====================
 
 A minimal and light dev environment for ReactJS. With a server that allows for texting to more than 1 web client.
+
+!['Two users using ChattyApp'](https://github.com/arslanah99/ChattyApp/blob/master/docs/Chatty-ScreenShot.png)
 
 ### Usage
 
