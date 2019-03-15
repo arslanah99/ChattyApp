@@ -17,15 +17,14 @@ class App extends Component {
       
         currentUser: {name: 'Anonymous'}, // optional. if currentUser is not defined, it means the user is Anonymous
         messages: [],
-        value:''
+        value:'',
+        counter: 0
       }
     }
 
 handleNameChange(ef) {
   if (ef.key === 'Enter') {
-    // const oldName = this.state.currentUser;
-    // const newNames = this.setState({ currentUser: ef.target.value, type:'postMessagez'});
-    // this.state.currentUser
+
 
     const newName = ef.target.value;
     const {currentUser} = this.state
@@ -53,53 +52,33 @@ componentDidMount() {
   this.socket.onmessage = (event) => {
     console.log(event.data)
     let storeUserData = JSON.parse(event.data)
-    // console.log(storeUserData.username)
-    // console.log(this.state)
-    // switch(storeUserData.type){
-    //   case 'incomingMessage':
-    //   // handle incoming message
 
-    //     break;
-    //   case 'incomingNotification':
-    //   //handle incoming notification
-    //     break;
-    //   default:
-    //     //show an error in the console if the message type in unknown
-    //     throw new Error('Unknown event type ' + storeUserData.type);
-    // }
+    switch(storeUserData.type){
+      case 'UserCounter':
+      // handle incoming message
+      this.setState({counter: storeUserData.userCount})
+        break;
+      case 'incomingMessage':
+      this.setState({curData: storeUserData.newMesage})
+      console.log(this.setState({curData: storeUserData.newMesage.userCounter})
+      )
+      break;
+      default:
+        //show an error in the console if the message type in unknown
+        throw new Error('Unknown event type ' + storeUserData.type);
+    }
     let curData = this.state.messages;
     curData.push(storeUserData);
     this.setState({messages: curData})
   }
-  //mathod save the old username that is found in state
-  //define a var that you use to save the old username
-  //if logic
-  //craete a new var object that contains the an object including the type old username and new username
-  //send the notification variable to the server
-  //adn then set state3 of new user and that the function
-  //
 
 
-  // function sendText() {
-
-  //   var msg = {
-  //     type: 'Send Message',
-  //     content: this.state.messages.content,
-  //     username: this.state.currentUser.name
-
-  //   }
-  //     socket.send(JSON.stringify(msg))
-    
-  //   }
 
   setTimeout(() => {
     console.log('Simulating incoming message');
-    // Add a new message to the list of messages in the data store
     const newMessage = {id: 3, username: 'Michelle', content: 'Hello there!'};
     const messages = this.state.messages.concat(newMessage)
-    // Update the state of the app component.
     
-    // Calling setState will trigger a call to render() in App and all child components.
     this.setState({messages: messages})
   }, 3000);
 
@@ -109,29 +88,21 @@ handleChange(e) {
   }
 keyPress(e){
   if(e.key == 'Enter'){
-    // console.log(e.target.value)
     let newMesage = {
-      'type': 'incomingMessage',
-      'content': e.target.value,
-      'username': this.state.currentUser.name,
-      'id': uuidv1()
+      type: 'incomingMessage',
+      content: e.target.value,
+      username: this.state.currentUser.name,
+      id: uuidv1()
     }
     this.socket.send(JSON.stringify(newMesage))
     }
   }
 
 
-  // newMessage(e) {
-  //   console.log('fdsauifodsajfok')
-  //   if (e.key == 'Enter'){
-
-  //   }
-  // }
-
   render() {
     return (
     <div>
-    {/* <Message />, */}
+    <a className="navbar-brand-name">Current Users Online:{this.state.counter}</a>
     <ChatBar currentUser={this.state.currentUser} keyPress={this.keyPress} handleChange={this.handleChange} value={this.state.value} handleNameChange={this.handleNameChange} />,
     <MessageList messages={this.state.messages}/>
     </div>
