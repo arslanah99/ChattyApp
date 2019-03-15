@@ -92,7 +92,6 @@ class App extends Component {
           value={this.state.value}
           handleNameChange={this.handleNameChange}
         />
-        ,
         <MessageList messages={this.state.messages} />
       </div>
     );
