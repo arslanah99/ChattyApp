@@ -18,9 +18,8 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
-// Set up a callback that will run when a client connects to the server
-// When a client connects they are assigned a socket, represented by
-// the ws parameter in the callback.
+//allows for the user counter to add 1 every time when the server
+//checks a new user is added to the server.
 wss.on("connection", ws => {
   const userCounter = {
     userCount: wss.clients.size,
@@ -31,7 +30,6 @@ wss.on("connection", ws => {
       client.send(JSON.stringify(userCounter));
     }
   });
-
 
   ws.on("message", function incoming(data) {
     // let stringData = JSON.stringify(data)
