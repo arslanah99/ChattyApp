@@ -23,6 +23,8 @@ wss.on('connection', (ws) => {
   console.log('Client connected');
 ws.on('message', function incoming(data){
   // let stringData = JSON.parse(data)
+  let newNotificationData = JSON.parse(newNotificationData)
+  console.log(newNotificationData.content)
   wss.clients.forEach(function each(client){
     if(client.readyState === wsServer){
       client.send(data)
