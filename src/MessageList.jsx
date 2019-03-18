@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import Message from "./Message.jsx";
+import React, { Component } from 'react';
+import Message from './Message.jsx';
 
 // const userItems = this.props.messages.username;
 class MessageList extends Component {
@@ -14,7 +14,7 @@ class MessageList extends Component {
         />
       );
     });
-    return <main className="messages">{listItems}</main>;
+    return <main className='messages'>{listItems}</main>;
   }
 }
 export default MessageList;
